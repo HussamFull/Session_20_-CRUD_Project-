@@ -69,7 +69,7 @@ addBtn.addEventListener("click", (e)=>{
         category.classList.add("is-valid");
       }
 
-       // categoryPattern  Validation
+       // PricePattern  Validation
        const PricePattern =  /^[0-9]{2,3}$/;
        if (!PricePattern.test(price.value)) {
         invalidPrice.innerHTML = "this price is Invalid. it must start  2 - 3 number !";
@@ -80,9 +80,24 @@ addBtn.addEventListener("click", (e)=>{
         price.classList.remove("is-invalid");
         price.classList.add("is-valid");
        }
+      
+       /*
+       // descriptionPattern  Validation
+       const descriptionPattern = /^[A-Z][a-z]{0,9}$/;
+       if (!categoryPattern.test(description.value)) {
+        invalidDescription.innerHTML = "this description is Invalid. it must start with a Capital Letter and contain 100 char small Letters!";
+        description.classList.add("is-invalid");
+         isValid = false;
+       }else {
+        invalidDescription.innerHTML = "";
+        description.classList.remove("is-invalid");
+        description.classList.add("is-valid");
+       } */
 
 
-              // categoryPattern  Validation
+
+
+              // CapacityPattern  Validation
        const CapacityPattern =  /^[0-9]{2,3}$/;
        if (!CapacityPattern.test(capacity.value)) {
         invalidCapacity.innerHTML = "this capacity is Invalid. it must start  2 - 3 number !";
