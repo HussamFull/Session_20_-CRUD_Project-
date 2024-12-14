@@ -6,6 +6,10 @@ const description = document.querySelector("#courseDescription");
 const capacity = document.querySelector("#courseCapacity");
 const addBtn = document.querySelector("#click");
 const deleteBtn = document.querySelector("#deleteBtn");
+const search = document.querySelector("#search");
+
+
+
 
 // Validation
 const invalidName = document.querySelector(".invalid-name");
@@ -36,7 +40,7 @@ addBtn.addEventListener("click", (e)=>{
      let isValid = true;
 
     //   الفاليديشن *1 *  namePattern  ))))))))))
-    const namePattern = /^[A-Z][a-z]{2,10}$/;
+    const namePattern = /^[A-Z][a-z]{2,10}[0-9]{0,2} $/;
 
     if (!namePattern.test(name.value)) {
       invalidName.innerHTML = "this name is Invalid. it must start with a Capital Letter and contain 2 - 10 char small Letters!";
@@ -273,6 +277,80 @@ function deleteCourse(index) {
   */
 }
 
+// search Course
+
+search.addEventListener("input", (e) => {
+
+  const keyword = search.value;
+
+  const coursesResult = courses.filter((course) =>{
+    return course.name.toLowerCase().includes(keyword.toLowerCase());
+  });
+
+  const result = coursesResult.map((course,index)=>{
+    return `
+    <tr>
+    <td>${index}</td>
+    <td>${course.name}</td>
+    <td>${course.category}</td>
+    <td>${course.price}</td>
+    <td>${course.description}</td>
+    <td>${course.capacity}</td>
+    <td>
+    <button class="btn btn-danger" onclick='deleteCourse(${index})'>delete</button>
+    </td>
+     <td>
+      <button class="btn btn-primary">update</button>
+      </td>
+    </tr>
+    `;
+} ).join(' ');
+
+document.querySelector("#data").innerHTML = result;
+
+
+});
+
+
+
+
+
+// update Course
+/* 
+updateBtn.addEventListener("click", () => {
+  const updatedCourse = {
+    name: name.value,
+    category: category.value,
+    price: parseFloat(price.value),
+    description: description.value,
+    capacity: parseInt(capacity.value)
+  };
+  courses[updateIndex] = updatedCourse;
+  localStorage.setItem("courses", JSON.stringify(courses));
+  displayCourses();
+  Swal.fire({
+    title: "Course updated!",
+    text: "The course has been updated successfully.",
+    icon: "success"
+  });
+  updateIndex = -1;
+  clearForm();
+  clearInvalidMessages();
+
+  clearForm();
+  clearInvalidMessages();
+});
+
+function clearForm() {
+  name.value = "";
+  category.value = "";
+  price.value = "";
+  description.value = "";
+  capacity.value = "";
+}
+*/
+
+
 
 
 // dellete All Course
@@ -304,10 +382,6 @@ deleteBtn.addEventListener("click", () => {
 
   localStorage.setItem("courses", JSON.stringify(courses));
   displayCourses();
-
-
-
-
       swalWithBootstrapButtons.fire({
         title: "Deleted!",
         text: `The course "${deletedCourse}" has been deleted.`,
