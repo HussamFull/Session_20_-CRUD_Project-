@@ -5,6 +5,7 @@ const price = document.querySelector("#coursePrice");
 const description = document.querySelector("#courseDescription");
 const capacity = document.querySelector("#courseCapacity");
 const addBtn = document.querySelector("#click");
+const deleteBtn = document.querySelector("#deleteBtn");
 
 // Validation
 const invalidName = document.querySelector(".invalid-name");
@@ -271,3 +272,58 @@ function deleteCourse(index) {
   });
   */
 }
+
+
+
+// dellete All Course
+
+deleteBtn.addEventListener("click", () => {
+
+  
+  const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: "btn btn-success",
+      cancelButton: "btn btn-danger"
+    },
+    buttonsStyling: false
+  });
+  swalWithBootstrapButtons.fire({
+    title: "Are you sure?",
+    // `The course "${deletedCourse}" has been deleted.`
+
+    text: `You will not be able to undo this !  `,
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Yes, delete it!",
+    cancelButtonText: "No, cancel!",
+    reverseButtons: true
+  }).then((result) => {
+    if (result.isConfirmed) {
+
+  courses = [];
+
+  localStorage.setItem("courses", JSON.stringify(courses));
+  displayCourses();
+
+
+
+
+      swalWithBootstrapButtons.fire({
+        title: "Deleted!",
+        text: `The course "${deletedCourse}" has been deleted.`,
+        icon: "success"
+      });
+    } else if (
+      /* Read more about handling dismissals below */
+      result.dismiss === Swal.DismissReason.cancel
+    ) {
+      swalWithBootstrapButtons.fire({
+        title: "Cancelled",
+        text: "Your imaginary file is safe :)",
+        icon: "error"
+      });
+    }
+  });
+
+
+})
