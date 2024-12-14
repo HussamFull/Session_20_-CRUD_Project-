@@ -40,7 +40,7 @@ addBtn.addEventListener("click", (e)=>{
      let isValid = true;
 
     //   الفاليديشن *1 *  namePattern  ))))))))))
-    const namePattern = /^[A-Z][a-z]{2,10}[0-9]{0,2} $/;
+    const namePattern = /^[A-Z][a-z]{2,10}[0-9]{0,2}$/;
 
     if (!namePattern.test(name.value)) {
       invalidName.innerHTML = "this name is Invalid. it must start with a Capital Letter and contain 2 - 10 char small Letters!";
