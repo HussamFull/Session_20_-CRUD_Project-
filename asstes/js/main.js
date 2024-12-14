@@ -179,11 +179,52 @@ function displayCourses (){
                     <td>${course.price}</td>
                     <td>${course.description}</td>
                     <td>${course.capacity}</td>
-                    
+                    <td>
+                    <button class="btn btn-danger" onclick='deleteCourse(${index})'>delete</button>
+                    </td>
+                     <td>
+                    <button class="btn btn-primary">update</button>
+                    </td>
+
                 </tr>`;
     } ).join(' ');
 
     document.querySelector("#data").innerHTML = result;
 }
+// حذف الكورس 
+function deleteCourse(index) {
+  // الحصول على اسم الدورة قبل الحذف
+  const deletedCourse = courses[index].name; // افترض أن اسم الدورة مخزن في خاصية "name"
 
+  courses.splice(index, 1);
 
+  console.log(index);
+
+  localStorage.setItem("courses", JSON.stringify(courses));
+  displayCourses();
+
+  Swal.fire({
+    icon: "success",
+    title: "Course deleted!",
+    text: `The course "${deletedCourse}" has been deleted successfully.`,
+  });
+  /*
+  const Toast = Swal.mixin({
+    width: "500%",
+    imageHeight: "500%",
+    toast: true,
+    position: "center center",
+    showConfirmButton: false,
+    timer: 5000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
+    }
+  });
+  Toast.fire({
+    icon: "success",
+    title: "Course deleted! successfully"
+  });
+  */
+}
