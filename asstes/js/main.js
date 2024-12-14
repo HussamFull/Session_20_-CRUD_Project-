@@ -193,7 +193,28 @@ function displayCourses (){
 }
 // حذف الكورس 
 function deleteCourse(index) {
-  // الحصول على اسم الدورة قبل الحذف
+
+  const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: "btn btn-success",
+      cancelButton: "btn btn-danger"
+    },
+    buttonsStyling: false
+  });
+  swalWithBootstrapButtons.fire({
+    title: "Are you sure?",
+    // `The course "${deletedCourse}" has been deleted.`
+
+    text: `You   will not be able to undo this course!  `,
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Yes, delete it!",
+    cancelButtonText: "No, cancel!",
+    reverseButtons: true
+  }).then((result) => {
+    if (result.isConfirmed) {
+
+        // الحصول على اسم الدورة قبل الحذف
   const deletedCourse = courses[index].name; // افترض أن اسم الدورة مخزن في خاصية "name"
 
   courses.splice(index, 1);
@@ -203,12 +224,34 @@ function deleteCourse(index) {
   localStorage.setItem("courses", JSON.stringify(courses));
   displayCourses();
 
+
+
+
+      swalWithBootstrapButtons.fire({
+        title: "Deleted!",
+        text: `The course "${deletedCourse}" has been deleted.`,
+        icon: "success"
+      });
+    } else if (
+      /* Read more about handling dismissals below */
+      result.dismiss === Swal.DismissReason.cancel
+    ) {
+      swalWithBootstrapButtons.fire({
+        title: "Cancelled",
+        text: "Your imaginary file is safe :)",
+        icon: "error"
+      });
+    }
+  });
+
+
+/*
   Swal.fire({
     icon: "success",
     title: "Course deleted!",
     text: `The course "${deletedCourse}" has been deleted successfully.`,
   });
-  /*
+  
   const Toast = Swal.mixin({
     width: "500%",
     imageHeight: "500%",
