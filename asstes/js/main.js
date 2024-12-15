@@ -11,6 +11,7 @@ const search = document.querySelector("#search");
 
 
 
+
 // Validation
 const invalidName = document.querySelector(".invalid-name");
 const invalidCategory = document.querySelector(".invalid-category");
@@ -42,24 +43,30 @@ addBtn.addEventListener("click", (e)=>{
     //   الفاليديشن *1 *  namePattern  ))))))))))
     const namePattern = /^[A-Z][a-z]{2,10}[0-9]{0,2}$/;
 
-    if (!namePattern.test(name.value)) {
-      invalidName.innerHTML = "this name is Invalid. it must start with a Capital Letter and contain 2 - 10 char small Letters!";
+   
+    
+      if (!namePattern.test(name.value)) {
+        invalidName.innerHTML = "this name is Invalid. it must start with a Capital Letter and contain 2 - 10 char small Letters!";
+  
+        name.classList.add("is-invalid");
+  
+        isValid = false;
+        /*
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "invalid Course name !",
+        });*/ 
+      }else {
+        invalidName.innerHTML = "";
+        name.classList.remove("is-invalid");
+        name.classList.add("is-valid");
+  
+      }
+    
+     
 
-      name.classList.add("is-invalid");
-
-      isValid = false;
-      /*
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "invalid Course name !",
-      });*/ 
-    }else {
-      invalidName.innerHTML = "";
-      name.classList.remove("is-invalid");
-      name.classList.add("is-valid");
-
-    }
+  
 
 
       // categoryPattern  Validation
@@ -188,7 +195,7 @@ function displayCourses (){
                     <button class="btn btn-danger" onclick='deleteCourse(${index})'>delete</button>
                     </td>
                      <td>
-                    <button class="btn btn-primary">update</button>
+                    <button class="btn btn-primary" onclick='updateCourse(${index})'>update</button>
                     </td>
 
                 </tr>`;
@@ -349,6 +356,25 @@ function clearForm() {
   capacity.value = "";
 }
 */
+
+
+
+// updateCourse(${index})
+
+function updateCourse(index) {
+  console.log(index);
+  
+  
+  name.value = courses[index].name;
+  category.value = courses[index].category;
+  price.value = courses[index].price;
+  description.value = courses[index].description;
+  capacity.value = courses[index].capacity;
+  
+  addBtn.value  = 'Update Course';
+ 
+  
+}
 
 
 
