@@ -6,10 +6,9 @@ const description = document.querySelector("#courseDescription");
 const capacity = document.querySelector("#courseCapacity");
 const addBtn = document.querySelector("#click");
 const deleteBtn = document.querySelector("#deleteBtn");
+const updateBtn = document.querySelector(".UpdateBtn");
 const search = document.querySelector("#search");
-
-
-
+let updatIndex = -1;
 
 
 // Validation
@@ -363,20 +362,32 @@ function clearForm() {
 
 function updateCourse(index) {
   console.log(index);
-  
-  
+  updatIndex = index;
   name.value = courses[index].name;
   category.value = courses[index].category;
   price.value = courses[index].price;
   description.value = courses[index].description;
   capacity.value = courses[index].capacity;
-  
-  addBtn.value  = 'Update Course';
- 
-  
+
+  addBtn.style.display = "none";
+  updateBtn.style.display = "block";
 }
 
+updateBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  // check validation
+  console.log(updatIndex);
 
+  courses[updatIndex].name = name.value;
+  courses[updatIndex].category = category.value;
+  courses[updatIndex].price = parseFloat(price.value);
+  courses[updatIndex].description = description.value;
+  courses[updatIndex].capacity = parseInt(capacity.value);
+
+  addBtn.style.display = "block";
+  updateBtn.style.display = "none";
+  displayCourses();
+});
 
 
 // dellete All Course
